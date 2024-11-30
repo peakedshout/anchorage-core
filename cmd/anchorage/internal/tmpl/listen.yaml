@@ -1,0 +1,16 @@
+enable: false # loaded then to work <bool>
+#node: "" # register a specified node <string>
+name: "" # service name <string>
+#notes: "" # service notes <string>
+#auth: # service auth ( username  password ) <*config.AuthInfo>
+#    username: ""
+#    password: ""
+#switchHide: false # not to be discovered by others <bool>
+switchLink: true # whether or not to allow the link <bool>
+#switchUP2P: false # whether support udp p2p to link <bool>
+#switchTP2P: false # whether support tcp p2p to link <bool>
+#outNetwork: # out network config <*sdk.NetworkConfig>
+#    network: "" # must be tcp or udp <string>
+#    address: "" # must be tcp or udp <string>
+multi: true # whether support multi io to link <bool>
+#plugin: "" # plugin name <string>

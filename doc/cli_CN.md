@@ -1,0 +1,109 @@
+# Anchorage
+## Cli
+### Anchorage自带配套的cli工具，能够通过cli的方式操作anchorage服务。
+- global flags
+  - `--cmd.addr string   cmd address`
+    - 服务管理地址。
+  - `--cmd.nk string     cmd network`
+    - 服务管理网络类型。
+  - `--cmd.u string      cmd username`
+    - 服务管理用户名。
+  - `--cmd.p string      cmd password`
+    - 服务管理密码。
+  - `--cmd.tls           cmd tls enable`
+    - 服务管理tls支持。
+  - `--cmd.i             cmd tls insecure`
+    - 服务管理tls证书校验。
+- global cmd
+  - `anchorage ping`
+    - ping 服务管理是否可达。
+  - `anchorage info`
+    - 输出服务核心的信息，包括版本和可执行操作。
+  - `anchorage init`
+    - 初始化本地服务配置文件。
+    - `anchorage init {config}` 初始化指定服务配置文件。
+  - `anchorage start`
+    - 启动服务。
+    - `anchorage start {config}` 指定启动的配置文件并启动服务。
+    - `anchorage start -i` 如果配置文件不存在将初始化一个配置文件，并启动服务。
+    - `anchorage -d` 启用debug pprof功能和metrics功能。
+  - `anchorage stop`
+    - 停止服务。
+  - `anchorage reload`
+    - 重载服务。
+  - `anchorage config`
+    - 获取服务配置。
+  - `anchorage update`
+    - 更新服务配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+  - `anchorage log`
+    - 获取服务日志流。
+- `anchorage view client`
+  - 获取`client`模块列表信息。
+  - `anchorage view client default` 获取`client`模块列表信息。
+  - `anchorage view client default {id}` 根据`client`id进行获取对应`client`模块信息。
+  - `anchorage view client default {id} {sub}` 根据`client`id和子模块id进行获取对应`client`模块的子模块信息。
+  - `anchorage view client session {id}` 根据`client`id进行获取对应`client`模块session信息。
+  - `anchorage view client proxyT {id}` 根据`client`id进行获取对应`client`模块proxy信息。
+- `anchorage view server`
+  - 获取`server`模块列表信息。
+  - `anchorage view server default` 获取`server`模块列表信息。
+  - `anchorage view server default {id}` 根据`server`id进行获取对应`server`模块信息。
+  - `anchorage view server session {id}` 根据`server`id进行获取对应`server`模块session信息。
+  - `anchorage view server route {id}` 根据`server`id进行获取对应`server`模块route信息。
+  - `anchorage view server link {id}` 根据`server`id进行获取对应`server`模块link信息。
+  - `anchorage view server sync {id}` 根据`server`id进行获取对应`server`模块sync信息。
+  - `anchorage view server proxy {id}` 根据`server`id进行获取对应`server`模块proxy信息。
+- `anchorage server`
+  - `server`模块相关操作。
+  - `anchorage server add` 会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+  - `anchorage server config {id}` 根据`server`id进行获取对应`server`模块配置。
+  - `anchorage server del {id}` 根据`server`id进行删除对应`server`模块，如果该模块正在运行将强行停止该模块。
+  - `anchorage server reload {id}` 根据`server`id进行重载对应`server`模块。
+  - `anchorage server start {id}` 根据`server`id进行启动对应`server`模块。
+  - `anchorage server stop {id}` 根据`server`id进行停止对应`server`模块。
+  - `anchorage server update {id}` 根据`server`id进行更新对应`server`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+- `anchorage client`
+  - `client`模块相关操作。
+  - `anchorage client add` 会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+  - `anchorage client config {id}` 根据`client`id进行获取对应`client`模块配置。
+  - `anchorage client del {id}` 根据`client`id进行删除对应`client`模块，如果该模块正在运行将强行停止该模块。
+  - `anchorage client reload {id}` 根据`client`id进行重载对应`client`模块。
+  - `anchorage client start {id}` 根据`client`id进行启动对应`client`模块。
+  - `anchorage client stop {id}` 根据`client`id进行停止对应`client`模块。
+  - `anchorage client update {id}` 根据`client`id进行更新对应`client`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+- `anchorage listen`
+  - `listen`模块相关操作。
+  - `anchorage listen add {id}` 根据`client`id进行添加`listen`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+  - `anchorage listen config {id} {sub}` 根据`client`id和`listen`id进行获取对应`listen`模块配置。
+  - `anchorage listen del {id} {sub}` 根据`client`id和`listen`id进行删除对应`listen`模块，如果该模块正在运行将强行停止该模块。
+  - `anchorage listen reload {id} {sub}` 根据`client`id和`listen`id进行重载对应`listen`模块。
+  - `anchorage listen start {id} {sub}` 根据`client`id和`listen`id进行启动对应`listen`模块。
+  - `anchorage listen stop {id} {sub}` 根据`client`id和`listen`id进行停止对应`listen`模块。
+  - `anchorage listen update {id} {sub}` 根据`client`id和`listen`id进行更新对应`listen`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+- `anchorage dial`
+  - `dial`模块相关操作。
+  - `anchorage dial add {id}` 根据`client`id进行添加`dial`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+  - `anchorage dial config {id} {sub}` 根据`client`id和`dial`id进行获取对应`dial`模块配置。
+  - `anchorage dial del {id} {sub}` 根据`client`id和`dial`id进行删除对应`dial`模块，如果该模块正在运行将强行停止该模块。
+  - `anchorage dial reload {id} {sub}` 根据`client`id和`dial`id进行重载对应`dial`模块。
+  - `anchorage dial start {id} {sub}` 根据`client`id和`dial`id进行启动对应`dial`模块。
+  - `anchorage dial stop {id} {sub}` 根据`client`id和`dial`id进行停止对应`dial`模块。
+  - `anchorage dial update {id} {sub}` 根据`client`id和`dial`id进行更新对应`dial`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+- `anchorage proxy`
+  - `proxy`模块相关操作。
+  - `anchorage proxy add {id}` 根据`client`id进行添加`proxy`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+  - `anchorage proxy config {id} {sub}` 根据`client`id和`proxy`id进行获取对应`proxy`模块配置。
+  - `anchorage proxy del {id} {sub}` 根据`client`id和`proxy`id进行删除对应`proxy`模块，如果该模块正在运行将强行停止该模块。
+  - `anchorage proxy reload {id} {sub}` 根据`client`id和`proxy`id进行重载对应`proxy`模块。
+  - `anchorage proxy start {id} {sub}` 根据`client`id和`proxy`id进行启动对应`proxy`模块。
+  - `anchorage proxy stop {id} {sub}` 根据`client`id和`proxy`id进行停止对应`proxy`模块。
+  - `anchorage proxy update {id} {sub}` 根据`client`id和`proxy`id进行更新对应`proxy`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+- `anchorage plugin`
+  - `plugin`模块相关操作。
+  - `anchorage plugin add {id}` 根据`client`id进行添加`plugin`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+  - `anchorage plugin config {id} {sub}` 根据`client`id和`plugin`id进行获取对应`plugin`模块配置。
+  - `anchorage plugin del {id} {sub}` 根据`client`id和`plugin`id进行删除对应`plugin`模块，如果该模块正在被引用，将不会影响引用的模块的本次工作。
+  - `anchorage plugin list_ut {type}` 根据插件类型返回该服务支持哪些插件。
+  - `anchorage plugin get_ut {type} {name}` 根据插件类型和插件名称返回该插件的模板配置。
+  - `anchorage plugin update {id} {sub}` 根据`client`id和`plugin`id进行更新对应`plugin`模块配置，会调用命令行文本编辑器进行模板输入模块配置，保存退出后将发起提交请求。
+

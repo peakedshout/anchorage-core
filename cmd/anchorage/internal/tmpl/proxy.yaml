@@ -1,0 +1,10 @@
+enable: false # loaded then to work <bool>
+#node: [] # node links <[]string>
+inNetwork: # in network config <*sdk.NetworkConfig>
+    network: "" # must be tcp or udp <string>
+    address: "" # must be tcp or udp <string>
+#outNetwork: # out network config <*sdk.NetworkConfig>
+#    network: "" # must be tcp or udp <string>
+#    address: "" # must be tcp or udp <string>
+#multi: 0 # whether support multi io count to link <int>
+#plugin: "" # plugin name <string>

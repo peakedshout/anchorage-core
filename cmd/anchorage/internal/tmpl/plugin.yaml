@@ -1,0 +1,3 @@
+name: "" # plugin name <string>
+type: [] # plugin type (dial,listen,proxy) <[]string>
+list: [] # list plugin setting <[]map[string]interface {}>

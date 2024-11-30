@@ -1,0 +1,109 @@
+# Anchorage
+## Cli
+### Anchorage comes with its own supporting cli tool, which can operate the anchorage service through cli.
+- global flags
+  - `--cmd.addr string   cmd address`
+    - The address of the service management.
+  - `--cmd.nk string     cmd network`
+    - The type of network for which the service is managed.
+  - `--cmd.u string      cmd username`
+    - The username of the service administration.
+  - `--cmd.p string      cmd password`
+    - The service management password.
+  - `--cmd.tls           cmd tls enable`
+    - The service management TLS support.
+  - `--cmd.i             cmd tls insecure`
+    - The service management TLS certificate verification.
+- global cmd
+  - `anchorage ping`
+    - Ping whether the service management is reachable.
+  - `anchorage info`
+    - Outputs information about the service core, including versions and actionable actions.
+  - `anchorage init`
+    - Initialize the local service configuration file.
+    - `anchorage init {config}` Initialize the specified service profile.
+  - `anchorage start`
+    - Start of service.
+    - `anchorage start {config}` Specify the profile to start and start the service.
+    - `anchorage start -i` If the profile does not exist, a profile will be initialized and the service will be started.
+    - `anchorage -d` Enable the debug pprof and metrics features.
+  - `anchorage stop`
+    - Stop of service.
+  - `anchorage reload`
+    - Reload of service.
+  - `anchorage config`
+    - Get the service configuration.
+  - `anchorage update`
+    - To update the service configuration, the command line text editor will be invoked to configure the template input module, and a submission request will be initiated after saving and exiting.
+  - `anchorage log`
+    - Get the service log stream.
+- `anchorage view client`
+  - Get the list of `client` modules.
+  - `anchorage view client default` Get the list of `client` modules.
+  - `anchorage view client default {id}` Obtain the information of the corresponding `client` module based on the `client` id.
+  - `anchorage view client default {id} {sub}` Obtain the submodule information of the corresponding `client` module based on the `client` id and submodule id.
+  - `anchorage view client session {id}` Obtain the session information of the corresponding `client` module based on the `client` id.
+  - `anchorage view client proxyT {id}` Obtain the proxy information of the corresponding `client` module based on the `client` id.
+- `anchorage view server`
+  - Get the list of `server` modules.
+  - `anchorage view server default` Get the list of `server` modules.
+  - `anchorage view server default {id}` Obtain the information of the corresponding `server` module based on the `server` id.
+  - `anchorage view server session {id}` Obtain the session information of the corresponding `server` module based on the `server` id.
+  - `anchorage view server route {id}` Obtain the route information of the corresponding `server` module based on the `server` id.
+  - `anchorage view server link {id}` Obtain the link information of the corresponding `server` module based on the `server` id.
+  - `anchorage view server sync {id}` Obtain the sync information of the corresponding server module based on the `server` id.
+  - `anchorage view server proxy {id}` Obtain the proxy information of the corresponding `server` module based on the `server` id.
+- `anchorage server`
+  - `server` module related operations.
+  - `anchorage server add` will call the command line text editor to configure the template input module, and after saving and exiting, a submission request will be initiated.
+  - `anchorage server config {id}` gets the corresponding `server` module configuration according to the `server`id.
+  - `anchorage server del {id}` deletes the corresponding `server` module according to the `server`id. If the module is running, it will be forcibly stopped.
+  - `anchorage server reload {id}` reloads the corresponding `server` module according to the `server`id.
+  - `anchorage server start {id}` starts the corresponding `server` module according to the `server`id.
+  - `anchorage server stop {id}` stops the corresponding `server` module according to the `server` id.
+  - `anchorage server update {id}` updates the corresponding `server` module configuration according to the `server`id, and calls the command line text editor to input the template module configuration. After saving and exiting, a submission request will be initiated.
+- `anchorage client`
+  - `client` module related operations.
+  - `anchorage client add` will call the command line text editor to configure the template input module, and will initiate a submission request after saving and exiting.
+  - `anchorage client config {id}` gets the corresponding `client` module configuration according to the `client`id.
+  - `anchorage client del {id}` deletes the corresponding `client` module according to the `client` id. If the module is running, it will be forcibly stopped.
+  - `anchorage client reload {id}` reloads the corresponding `client` module according to the `client`id.
+  - `anchorage client start {id}` starts the corresponding `client` module according to the `client`id.
+  - `anchorage client stop {id}` stops the corresponding `client` module according to the `client` id.
+  - `anchorage client update {id}` updates the corresponding `client` module configuration according to the `client`id. The command line text editor will be called to input the module configuration. After saving and exiting, a submission request will be initiated.
+- `anchorage listen`
+  - `listen` module related operations.
+  - `anchorage listen add {id}` adds `listen` module configuration according to `client`id, and calls the command line text editor to input the module configuration in the template. After saving and exiting, a submission request will be initiated.
+  - `anchorage listen config {id} {sub}` gets the corresponding `listen` module configuration according to `client`id and `listen`id.
+  - `anchorage listen del {id} {sub}` deletes the corresponding `listen` module according to `client`id and `listen`id. If the module is running, it will be forcibly stopped.
+  - `anchorage listen reload {id} {sub}` reloads the corresponding `listen` module according to `client`id and `listen`id.
+  - `anchorage listen start {id} {sub}` starts the corresponding `listen` module according to `client`id and `listen`id.
+  - `anchorage listen stop {id} {sub}` stops the corresponding `listen` module according to `client`id and `listen`id.
+  - `anchorage listen update {id} {sub}` updates the corresponding `listen` module configuration according to `client`id and `listen`id, and calls the command line text editor to input the module configuration. After saving and exiting, a submission request will be initiated.
+- `anchorage dial`
+  - `dial` module related operations.
+  - `anchorage dial add {id}` adds `dial` module configuration according to `client`id, and calls the command line text editor to input the module configuration. After saving and exiting, a submission request will be initiated.
+  - `anchorage dial config {id} {sub}` gets the corresponding `dial` module configuration according to `client`id and `dial`id.
+  - `anchorage dial del {id} {sub}` deletes the corresponding `dial` module according to `client`id and `dial`id. If the module is running, it will be forcibly stopped.
+  - `anchorage dial reload {id} {sub}` reloads the corresponding `dial` module according to `client`id and `dial`id.
+  - `anchorage dial start {id} {sub}` starts the corresponding `dial` module according to `client`id and `dial`id.
+  - `anchorage dial stop {id} {sub}` stops the corresponding `dial` module according to `client`id and `dial`id.
+  - `anchorage dial update {id} {sub}` updates the corresponding `dial` module configuration according to `client`id and `dial`id, and calls the command line text editor to configure the template input module. After saving and exiting, a submission request will be initiated.
+- `anchorage proxy`
+  - `proxy` module related operations.
+  - `anchorage proxy add {id}` adds `proxy` module configuration according to `client`id, and calls the command line text editor to input the module configuration template. After saving and exiting, a submission request will be initiated.
+  - `anchorage proxy config {id} {sub}` gets the corresponding `proxy` module configuration according to `client`id and `proxy`id.
+  - `anchorage proxy del {id} {sub}` deletes the corresponding `proxy` module according to `client`id and `proxy`id. If the module is running, it will be forcibly stopped.
+  - `anchorage proxy reload {id} {sub}` reloads the corresponding `proxy` module according to `client`id and `proxy`id.
+  - `anchorage proxy start {id} {sub}` starts the corresponding `proxy` module according to `client`id and `proxy`id.
+  - `anchorage proxy stop {id} {sub}` stops the corresponding `proxy` module according to `client`id and `proxy`id.
+  - `anchorage proxy update {id} {sub}` updates the corresponding `proxy` module configuration according to `client`id and `proxy`id, and calls the command line text editor to input the module configuration. After saving and exiting, a submission request will be initiated.
+- `anchorage plugin`
+  - `plugin` module related operations.
+  - `anchorage plugin add id` adds `plugin` module configuration according to `client`id, and calls the command line text editor to configure the template input module. After saving and exiting, a submission request will be initiated.
+  - `anchorage plugin config {id} {sub}` gets the corresponding `plugin` module configuration according to `client`id and `plugin`id.
+  - `anchorage plugin del {id} {sub}` deletes the corresponding `plugin` module according to `client`id and `plugin`id. If the module is being referenced, it will not affect the current work of the referenced module.
+  - `anchorage plugin list_ut {type}` returns which plugins the service supports based on the plugin type.
+  - `anchorage plugin get_ut {type} {name}` returns the template configuration of the plugin based on the plugin type and plugin name.
+  - `anchorage plugin update {id} {sub}` updates the corresponding `plugin` module configuration according to `client`id and `plugin`id, and calls the command line text editor to configure the template input module. After saving and exiting, a submission request will be initiated.
+

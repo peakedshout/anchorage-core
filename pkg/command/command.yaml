@@ -1,0 +1,1620 @@
+openapi: 3.0.3
+info:
+  title: anchorage-cmd
+  description: anchorage cmd rpc api
+  version: v0.1.0-beta
+servers:
+  - url: 'http://127.0.0.1:2024/anchorage'
+  - url: 'https://127.0.0.1:2024/anchorage'
+components:
+  schemas:
+    IdInfo:
+      type: object
+      properties:
+        id:
+          type: string
+    IdSubInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        sub:
+          type: string
+    Info:
+      type: object
+      properties:
+        core:
+          type: string
+        version:
+          type: string
+        flag:
+          type: array
+          items:
+            type: string
+    NodeConfig:
+      type: object
+      properties:
+        nodeName:
+          type: string
+        baseNetwork:
+          type: array
+          items:
+            type: object
+            properties:
+              network:
+                type: string
+              address:
+                type: string
+        exNetworks:
+          type: array
+          items:
+            type: object
+            properties:
+              network:
+                type: string
+              certFile:
+                type: string
+              keyFile:
+                type: string
+              certRaw:
+                type: string
+              keyRaw:
+                type: string
+              insecureSkipVerify:
+                type: boolean
+        crypto:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              crypto:
+                type: string
+              keyFiles:
+                type: array
+                items:
+                  type: string
+              keys:
+                type: array
+                items:
+                  type: string
+              priority:
+                type: integer
+        handshakeTimeout:
+          type: integer
+        handleTimeout:
+          type: integer
+        auth:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+    LoggerConfig:
+      type: object
+      properties:
+        clear:
+          type: boolean
+        logLevel:
+          type: string
+        needStack:
+          type: boolean
+        needColor:
+          type: boolean
+        logFile:
+          type: string
+    ServerConfig:
+      type: object
+      properties:
+        nodeInfo:
+          $ref: '#/components/schemas/NodeConfig'
+        syncNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeConfig'
+        logger:
+          $ref: '#/components/schemas/LoggerConfig'
+        syncTimeInterval:
+          type: integer
+        linkTimeout:
+          type: integer
+        proxyMulti:
+          type: integer
+    ClientConfigUnit:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeConfig'
+        logger:
+          $ref: '#/components/schemas/LoggerConfig'
+    ListenConfig:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        node:
+          type: string
+        name:
+          type: string
+        notes:
+          type: string
+        auth:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+        switchHide:
+          type: boolean
+        switchLink:
+          type: boolean
+        switchUP2P:
+          type: boolean
+        switchTP2P:
+          type: boolean
+        outNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        multi:
+          type: boolean
+        plugin:
+          type: string
+    DialConfig:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        node:
+          type: array
+          items:
+            type: string
+        link:
+          type: string
+        PP2PNetwork:
+          type: string
+        switchUP2P:
+          type: boolean
+        switchTP2P:
+          type: boolean
+        forceP2P:
+          type: boolean
+        auth:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+        inNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        outNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        multi:
+          type: integer
+        multiIdle:
+          type: integer
+        plugin:
+          type: string
+    ProxyConfig:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        node:
+          type: array
+          items:
+            type: string
+        inNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        outNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        multi:
+          type: integer
+        plugin:
+          type: string
+    PluginConfig:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: array
+          items:
+            type: string
+        list:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: object
+    ClientConfigAll:
+      type: object
+      properties:
+        config:
+          type: object
+          properties:
+            enable:
+              type: boolean
+            config:
+              $ref: '#/components/schemas/ClientConfigUnit'
+        listen:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListenConfig'
+        dial:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListenConfig'
+        proxy:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProxyConfig'
+        plugin:
+          type: array
+          items:
+            $ref: '#/components/schemas/PluginConfig'
+    ServerConfigAll:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        config:
+          $ref: '#/components/schemas/ServerConfig'
+    ConfigAll:
+      type: object
+      properties:
+        server:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerConfigAll'
+        client:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientConfigAll'
+    ServerView:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: boolean
+        enable:
+          type: boolean
+        config:
+          $ref: '#/components/schemas/ServerConfig'
+    ServerViewList:
+      type: array
+      items:
+        $ref: '#/components/schemas/ServerView'
+    MonitorInfo:
+      type: object
+      properties:
+        RCount:
+          type: integer
+        WCount:
+          type: integer
+        RCountView:
+          type: string
+        WCountView:
+          type: string
+        RSpeed:
+          type: number
+        WSpeed:
+          type: number
+        RSpeedView:
+          type: string
+        WSpeedView:
+          type: string
+        CreateTime:
+          type: string
+        DeadTime:
+          type: string
+        LifeDuration:
+          type: integer
+        Delay:
+          type: integer
+    StreamView:
+      type: object
+      properties:
+        Id:
+          type: string
+        Type:
+          type: string
+        MonitorInfo:
+          $ref: "#/components/schemas/MonitorInfo"
+    SessionView:
+      type: object
+      properties:
+        Id:
+          type: string
+        ConnInfo:
+          type: object
+          properties:
+            RemotePubNetwork:
+              type: string
+            RemotePubAddress:
+              type: string
+            LocalPubNetwork:
+              type: string
+            LocalPubAddress:
+              type: string
+            RemotePriNetwork:
+              type: string
+            RemotePriAddress:
+              type: string
+            LocalPriNetwork:
+              type: string
+            LocalPriAddress:
+              type: string
+        MonitorInfo:
+          $ref: "#/components/schemas/MonitorInfo"
+        StreamList:
+          type: array
+          items:
+            $ref: "#/components/schemas/StreamView"
+    SessionViewList:
+      type: array
+      items:
+        $ref: "#/components/schemas/SessionView"
+    SessionViewMapList:
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/SessionViewList"
+    ServiceRouteViewUnit:
+      type: object
+      properties:
+        name:
+          type: string
+        node:
+          type: string
+        notes:
+          type: string
+        auth:
+          type: boolean
+        settings:
+          type: object
+          properties:
+            switchHide:
+              type: boolean
+            switchLink:
+              type: boolean
+            switchUP2P:
+              type: boolean
+            switchTP2P:
+              type: boolean
+        delay:
+          type: string
+    ServiceRouteView:
+      type: object
+      properties:
+        nodeView:
+          additionalProperties:
+            additionalProperties:
+              type: array
+              items:
+                $ref: "#/components/schemas/ServiceRouteViewUnit"
+        serviceView:
+          additionalProperties:
+            type: array
+            items:
+              $ref: "#/components/schemas/ServiceRouteViewUnit"
+    ServerProxyView:
+      additionalProperties:
+        type: array
+        items:
+          type: object
+          properties:
+            Id:
+              type: string
+            Type:
+              type: string
+            MonitorInfo:
+              $ref: "#/components/schemas/MonitorInfo"
+            Nodes:
+              type: array
+              items:
+                type: string
+            Node:
+              type: string
+            FromNetwork:
+              type: string
+            FromAddress:
+              type: string
+            ToNetwork:
+              type: string
+            ToAddress:
+              type: string
+            TargetNetwork:
+              type: string
+            TargetAddress:
+              type: string
+    ClientProxyView:
+      additionalProperties:
+        type: object
+        properties:
+          Id:
+            type: string
+          Type:
+            type: string
+          MonitorInfo:
+            $ref: "#/components/schemas/MonitorInfo"
+          Nodes:
+            type: array
+            items:
+              type: string
+          Node:
+            type: string
+          LocalNetwork:
+            type: string
+          LocalAddress:
+            type: string
+          RemoteNetwork:
+            type: string
+          RemoteAddress:
+            type: string
+    ClientProxyViewList:
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/ClientProxyView'
+    LinkView:
+      type: object
+      properties:
+        id:
+          type: string
+        link:
+          type: string
+        status:
+          type: string
+        SIT:
+          type: array
+          items:
+            type: string
+            maxLength: 3
+            minLength: 3
+        initSTSessionId:
+          type: array
+          items:
+            type: string
+        workSTStreamId:
+          type: array
+          items:
+            type: string
+        workSTMonitorInfo:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitorInfo"
+        linkId:
+          type: string
+        linkList:
+          type: array
+          items:
+            type: string
+        nodeList:
+          type: array
+          items:
+            type: string
+    ListenView:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: boolean
+        enable:
+          type: boolean
+        name:
+          type: string
+        notes:
+          type: string
+        auth:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+        switchHide:
+          type: boolean
+        switchLink:
+          type: boolean
+        switchUP2P:
+          type: boolean
+        switchTP2P:
+          type: boolean
+        outNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        multi:
+          type: boolean
+        plugin:
+          type: string
+    DialView:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: boolean
+        enable:
+          type: boolean
+        node:
+          type: array
+          items:
+            type: string
+        link:
+          type: string
+        PP2PNetwork:
+          type: string
+        switchUP2P:
+          type: boolean
+        switchTP2P:
+          type: boolean
+        forceP2P:
+          type: boolean
+        auth:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+        inNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        outNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        multi:
+          type: integer
+        multiIdle:
+          type: integer
+        plugin:
+          type: string
+    ProxyView:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: boolean
+        enable:
+          type: boolean
+        node:
+          type: array
+          items:
+            type: string
+        inNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        outNetwork:
+          type: object
+          properties:
+            network:
+              type: string
+            address:
+              type: string
+        multi:
+          type: integer
+        plugin:
+          type: string
+    ClientView:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: boolean
+        enable:
+          type: boolean
+        config:
+          $ref: "#/components/schemas/ClientConfigUnit"
+        listen:
+          type: array
+          items:
+            $ref: "#/components/schemas/ListenView"
+        dial:
+          type: array
+          items:
+            $ref: "#/components/schemas/DialView"
+        proxy:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProxyView"
+        plugin:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginConfig"
+paths:
+  /ping:
+    description: try ping core
+    get:
+      responses:
+        200:
+          description: ping successful
+  /info:
+    description: get anchorage core info
+    get:
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Info'
+  /log:
+    description: get anchorage core runtime log
+    get:
+      responses:
+        200:
+          description: successful, content is bytes stream.
+  /stop:
+    description: stop anchorage core
+    get:
+      responses:
+        200:
+          description: stop successful
+  /reload:
+    description: reload anchorage core
+    get:
+      responses:
+        200:
+          description: reload successful
+  /config:
+    description: get anchorage core config
+    get:
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigAll'
+  /update:
+    description: update anchorage core config
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigAll'
+      responses:
+        200:
+          description: successful
+  /view_server:
+    description: get server list view
+    get:
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerViewList'
+  /view_server_id:
+    description: get server view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerView'
+  /view_server_session:
+    description: get server session view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionViewList"
+  /view_server_route:
+    description: get server route view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceRouteView"
+  /view_server_link:
+    description: get server link view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LinkView"
+  /view_server_sync:
+    description: get server sync view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionViewMapList"
+  /view_server_proxy:
+    description: get server proxy view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerProxyView"
+  /view_client:
+    description: get client list view
+    get:
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientView'
+  /view_client_unit:
+    description: get client unit list view
+    get:
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientView'
+  /view_client_id:
+    description: get client view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientView'
+  /view_client_unit_id:
+    description: get client unit view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientView'
+  /view_client_listen_id:
+    description: get client listen view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListenView'
+  /view_client_dial_id:
+    description: get client dial view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialView'
+  /view_client_proxy_id:
+    description: get client proxy view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProxyView'
+  /view_client_session:
+    description: get client session view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionViewMapList'
+  /view_client_proxyT:
+    description: get client proxy table list view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientProxyViewList'
+  /view_client_proxyT_unit:
+    description: get client proxy table list view
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientProxyView'
+  /add_server:
+    description: add server
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerConfigAll'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdInfo'
+  /del_server:
+    description: del server
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /start_server:
+    description: start server
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /stop_server:
+    description: stop server
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /reload_server:
+    description: reload server
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /update_server:
+    description: update server
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/ServerConfigAll'
+      responses:
+        200:
+          description: successful
+  /config_server:
+    description: get server config
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerConfigAll'
+  /add_client:
+    description: add client
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientConfigAll'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdInfo'
+  /add_client_unit:
+    description: add client unit
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enable:
+                  type: boolean
+                config:
+                  $ref: '#/components/schemas/ClientConfigUnit'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdInfo'
+  /del_client:
+    description: del client
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /start_client:
+    description: start client
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /start_client_unit:
+    description: start client unit
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /stop_client:
+    description: stop client
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /reload_client:
+    description: reload client
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /reload_client_unit:
+    description: reload client unit
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+  /update_client:
+    description: update client
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/ClientConfigAll'
+      responses:
+        200:
+          description: successful
+  /update_client_unit:
+    description: update client unit
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                data:
+                  type: object
+                  properties:
+                    enable:
+                      type: boolean
+                    data:
+                      $ref: '#/components/schemas/ClientConfigUnit'
+      responses:
+        200:
+          description: successful
+  /config_client:
+    description: get client config
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientConfigAll'
+  /config_client_unit:
+    description: get client config unit
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enable:
+                    type: boolean
+                  config:
+                    $ref: '#/components/schemas/ClientConfigUnit'
+  /add_listen:
+    description: add listen
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/ListenConfig'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdSubInfo'
+  /del_listen:
+    description: del listen
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /start_listen:
+    description: start listen
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /stop_listen:
+    description: stop listen
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /reload_listen:
+    description: reload listen
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /update_listen:
+    description: update listen
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                sub:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/ListenConfig'
+      responses:
+        200:
+          description: successful
+  /config_listen:
+    description: get listen config
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListenConfig'
+  /add_dial:
+    description: add dial
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/DialConfig'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdSubInfo'
+  /del_dial:
+    description: del dial
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /start_dial:
+    description: start dial
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /stop_dial:
+    description: stop dial
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /reload_dial:
+    description: reload dial
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /update_dial:
+    description: update dial
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                sub:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/DialConfig'
+      responses:
+        200:
+          description: successful
+  /config_dial:
+    description: get dial config
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialConfig'
+  /add_proxy:
+    description: add proxy
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/ProxyConfig'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdSubInfo'
+  /del_proxy:
+    description: del proxy
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /start_proxy:
+    description: start proxy
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /stop_proxy:
+    description: stop proxy
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /reload_proxy:
+    description: reload proxy
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /update_proxy:
+    description: update proxy
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                sub:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/ProxyConfig'
+      responses:
+        200:
+          description: successful
+  /config_proxy:
+    description: get proxy config
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProxyConfig'
+  /add_plugin:
+    description: add plugin
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/PluginConfig'
+      responses:
+        200:
+          description: successful
+  /del_plugin:
+    description: del plugin
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+  /update_plugin:
+    description: update plugin
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                sub:
+                  type: string
+                data:
+                  $ref: '#/components/schemas/PluginConfig'
+      responses:
+        200:
+          description: successful
+  /config_plugin:
+    description: get plugin config
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdSubInfo'
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PluginConfig'
+  /list_plugin_unit:
+    description: list plugin unit (type)
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+  /get_plugin_unit:
+    description: get plugin unit temp (type name)
+    get:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                - type: string
+                - type: string
+      responses:
+        200:
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+
