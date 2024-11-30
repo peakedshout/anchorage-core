@@ -120,39 +120,6 @@ func (sm *syncManager) syncNodeOnce(nCtx context.Context, nu *comm.NodeUnit) err
 	return err
 }
 
-//func (sm *syncManager) newSession(nCtx context.Context, nu *comm.NodeUnit) (*xrpc.ClientSession, error) {
-//	nCtx, _ = xrpc.SetSessionAuthInfoT[string](nCtx, comm.NodeName, nu.Node)
-//	conn, err := nu.Dr.MultiDialContext(nCtx, nu.Addrs...)
-//	if err != nil {
-//		return nil, err
-//	}
-//	session, err := nu.WithConn(nCtx, conn)
-//	if err != nil {
-//		_ = conn.Close()
-//		return nil, err
-//	}
-//	return session, nil
-//}
-//
-//func (sm *syncManager) newSessionByNode(ctx context.Context, node string) (session *xrpc.ClientSession, err error) {
-//	units, ok := sm.nm[node]
-//	if !ok {
-//		return nil, ErrNotFoundNode.Errorf(node)
-//	}
-//	list := mslice.MakeRandRangeSlice(0, len(units))
-//	for _, i := range list {
-//		if ctx.Err() != nil {
-//			return nil, ctx.Err()
-//		}
-//		unit := units[i]
-//		session, err = sm.newSession(ctx, unit)
-//		if session != nil {
-//			return session, nil
-//		}
-//	}
-//	return nil, ErrLinkNodeFailed
-//}
-
 type syncInfo struct {
 	SourceNode string
 	TargetNode string

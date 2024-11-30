@@ -251,46 +251,6 @@ func (ps *pluginSdk) build() error {
 	return nil
 }
 
-//func (ps *pluginSdk) newPluginHttp() {
-//	scfg := &httpproxy.ServerConfig{}
-//	u := ps.config.Args[PluginArgsAuthUserName]
-//	p := ps.config.Args[PluginArgsAuthPassword]
-//	if u != "" && p != "" {
-//		scfg.ReqAuthCb = httpproxy.UserInfoAuth(u, p)
-//	}
-//	ps.a = scfg
-//}
-//
-//func (ps *pluginSdk) newPluginSocks() {
-//	s4, s5 := true, true
-//	if ps.config.Type == PluginTypeSocks4 {
-//		s5 = false
-//	} else if ps.config.Type == PluginTypeSocks5 {
-//		s4 = false
-//	}
-//	u := ps.config.Args[PluginArgsAuthUserName]
-//	p := ps.config.Args[PluginArgsAuthPassword]
-//	scfg := &socks.ServerSimplifyConfig{
-//		SwitchSocksVersion4:   s4,
-//		SwitchSocksVersion5:   s5,
-//		SwitchCMDCONNECT:      true,
-//		SwitchCMDBIND:         false,
-//		SwitchCMDUDPASSOCIATE: true,
-//		Socks5Auth:            nil,
-//		Socks4Auth:            nil,
-//	}
-//	if u != "" && p != "" {
-//		scfg.Socks5Auth = &socks.SimplifySocks5Auth{
-//			User:     ps.config.Args[PluginArgsAuthUserName],
-//			Password: ps.config.Args[PluginArgsAuthPassword],
-//		}
-//
-//		scfg.Socks4Auth = &socks.SimplifySocks4Auth{UserId: ps.config.Args[PluginArgsAuthUserName]}
-//	}
-//	xcfg := scfg.Build()
-//	ps.a = xcfg
-//}
-
 func (ps *pluginSdk) getConfig() *PluginConfig {
 	ps.mux.Lock()
 	defer ps.mux.Unlock()

@@ -132,14 +132,3 @@ const (
 	PluginTypeListen = "listen"
 	PluginTypeProxy  = "proxy"
 )
-
-//const (
-//	PluginTypeSocks  = "socks"
-//	PluginTypeSocks4 = "socks4"
-//	PluginTypeSocks5 = "socks5"
-//	PluginTypeHttp   = "http"
-//	PluginTypeHttps  = "https"
-//
-//	PluginArgsAuthUserName = "username"
-//	PluginArgsAuthPassword = "password"
-//)

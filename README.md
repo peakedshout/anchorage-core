@@ -207,7 +207,7 @@ git clone https://github.com/peakedshout/anchorage-core.git
 cd anchorage-core
 ```
 ### Compile-using-golang
-`go build -o anchorage ./cmd/ancorage`
+`go build -o anchorage ./cmd/anchorage`
 or
 `go install github.com/peakedshout/anchorage-core/cmd/anchorage`
 
