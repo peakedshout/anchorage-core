@@ -4,7 +4,7 @@ go 1.21.13
 
 require (
 	github.com/miekg/dns v1.1.62
-	github.com/peakedshout/go-pandorasbox v0.0.0-20241130055209-177e7477bcde
+	github.com/peakedshout/go-pandorasbox v0.0.0-20241209130705-3d1188ebde36
 	github.com/quic-go/quic-go v0.46.0
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
